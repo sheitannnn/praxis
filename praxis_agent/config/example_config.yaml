@@ -1,0 +1,84 @@
+# Praxis Agent Configuration Example
+# Copy this to praxis_config.yaml and customize
+
+# Primary AI Provider Configuration
+primary_llm:
+  provider: openrouter  # Options: openrouter, openai, anthropic, ollama
+  model: openai/gpt-4-turbo-preview
+  api_key: ""  # Add your API key here
+  base_url: https://openrouter.ai/api/v1
+  max_tokens: 4096
+  temperature: 0.7
+  timeout: 60
+
+# Fallback AI Provider (used when primary fails)
+fallback_llm:
+  provider: ollama
+  model: llama2:7b
+  api_key: null
+  base_url: http://localhost:11434
+  max_tokens: 4096
+  temperature: 0.7
+  timeout: 60
+
+# Embedding model for memory and search
+embedding_model: sentence-transformers/all-MiniLM-L6-v2
+
+# System Configuration
+system:
+  log_level: INFO  # DEBUG, INFO, WARNING, ERROR
+  max_log_files: 10
+  log_rotation_mb: 10
+  enable_system_tray: true
+  auto_start: true
+  max_concurrent_tasks: 3
+  sandbox_enabled: true
+
+# Security and Safety Settings
+security:
+  allow_file_operations: true
+  allow_network_access: true
+  allow_code_execution: true
+  restricted_paths:
+    - "C:\\Windows\\System32"
+    - "C:\\Program Files"
+    - "C:\\Users\\*\\AppData\\Roaming\\Microsoft"
+  max_file_size_mb: 100
+
+# File and Directory Paths
+data_dir: "./data"
+logs_dir: "./logs"
+memory_db_path: "./data/memory.db"
+vector_db_path: "./data/vector_store"
+
+# Memory System Configuration
+max_short_term_memories: 100
+max_long_term_memories: 10000
+memory_retention_days: 30
+
+# Example Provider Configurations:
+
+# For OpenRouter:
+# primary_llm:
+#   provider: openrouter
+#   model: openai/gpt-4-turbo-preview  # or anthropic/claude-3-opus, etc.
+#   api_key: "your-openrouter-key"
+#   base_url: https://openrouter.ai/api/v1
+
+# For OpenAI Direct:
+# primary_llm:
+#   provider: openai
+#   model: gpt-4-turbo-preview
+#   api_key: "your-openai-key"
+
+# For Anthropic Direct:
+# primary_llm:
+#   provider: anthropic
+#   model: claude-3-opus-20240229
+#   api_key: "your-anthropic-key"
+
+# For Local Ollama Only:
+# primary_llm:
+#   provider: ollama
+#   model: llama2:7b
+#   base_url: http://localhost:11434
